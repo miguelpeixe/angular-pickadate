@@ -49,14 +49,16 @@
           defaultDate: '=',
           minDate: '=',
           maxDate: '=',
-          disabledDates: '='
+          disabledDates: '=',
+          nextLabel: '=',
+          prevLabel: '='
         },
         template:
           '<div class="pickadate">' +
             '<div class="pickadate-header">' +
               '<div class="pickadate-controls">' +
-                '<a href="" class="pickadate-prev" ng-click="changeMonth(-1)" ng-show="allowPrevMonth">prev</a>' +
-                '<a href="" class="pickadate-next" ng-click="changeMonth(1)" ng-show="allowNextMonth">next</a>' +
+                '<a href="" class="pickadate-prev" ng-click="changeMonth(-1)" ng-show="allowPrevMonth">{{prev}}</a>' +
+                '<a href="" class="pickadate-next" ng-click="changeMonth(1)" ng-show="allowNextMonth">{{next}}</a>' +
               '</div>'+
               '<h3 class="pickadate-centered-heading">' +
                 '{{currentDate | date:"MMMM yyyy"}}' +
@@ -86,6 +88,9 @@
 
           scope.dayNames    = $locale.DATETIME_FORMATS['SHORTDAY'];
           scope.currentDate = currentDate;
+
+          scope.prev = scope.prevLabel || 'prev';
+          scope.next = scope.nextLabel || 'next';
 
           scope.render = function(initialDate) {
             initialDate = new Date(initialDate.getFullYear(), initialDate.getMonth(), 1, 3);
