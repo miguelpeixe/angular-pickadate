@@ -98,7 +98,7 @@
               nextMonthDates    = dateUtils.dateRange(1, 7 - lastDate.getDay(), lastDate),
               allDates          = prevDates.concat(currentMonthDates, nextMonthDates),
               dates             = [],
-              today             = dateFilter(new Date(), 'yyyy-MM-dd');
+              today             = dateFilter((scope.defaultDate && dateUtils.stringToDate(scope.defaultDate)) || new Date(), 'yyyy-MM-dd');
 
             // Add an extra row if needed to make the calendar to have 6 rows
             if (allDates.length / 7 < 6) {
@@ -160,6 +160,17 @@
           function isDateDisabled(dateObj) {
             return (/pickadate-disabled/.test(dateObj.className));
           }
+
+          // Watch for val changes and rerender
+          scope.$watchCollection('[minDate, maxDate, disabledDates, defaultDate]', function(newVals, oldVals) {
+            minDate       = newVals[0] && dateUtils.stringToDate(newVals[0]);
+            maxDate       = newVals[1] && dateUtils.stringToDate(newVals[1]);
+            disabledDates = [newVals[2]] || [];
+            if(newVals[3] != oldVals[3]) {
+              scope.currentDate = currentDate = (newVals[3] && dateUtils.stringToDate(newVals[3])) || new Date();
+            }
+            scope.render(currentDate);
+          });
         }
       };
     }]);
