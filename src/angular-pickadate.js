@@ -98,7 +98,7 @@
               nextMonthDates    = dateUtils.dateRange(1, 7 - lastDate.getDay(), lastDate),
               allDates          = prevDates.concat(currentMonthDates, nextMonthDates),
               dates             = [],
-              today             = dateFilter((scope.defaultDate && dateUtils.stringToDate(scope.defaultDate)) || new Date(), 'yyyy-MM-dd');
+              today             = dateFilter(new Date(), 'yyyy-MM-dd');
 
             // Add an extra row if needed to make the calendar to have 6 rows
             if (allDates.length / 7 < 6) {
